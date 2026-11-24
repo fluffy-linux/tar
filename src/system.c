@@ -20,6 +20,7 @@
 
 #include "common.h"
 #include <priv-set.h>
+#include <paths.h>
 #include <rmt.h>
 #include <signal.h>
 #include <wordsplit.h>
@@ -27,14 +28,23 @@
 static _Noreturn void
 xexec (const char *cmd)
 {
+  const char *sh = "/bin/sh";
   char *argv[4];
 
-  argv[0] = (char *) "/bin/sh";
+  if (access (sh, X_OK) != 0)
+    {
+      if (access (_PATH_BSHELL, X_OK) == 0)
+        sh = _PATH_BSHELL;
+      else
+        sh = "sh";
+    }
+
+  argv[0] = (char *) "sh";
   argv[1] = (char *) "-c";
   argv[2] = (char *) cmd;
   argv[3] = NULL;
 
-  execv ("/bin/sh", argv);
+  execvp (sh, argv);
   exec_fatal (cmd);
 }
 
