@@ -1,0 +1,1 @@
+../translationproject/PO-files/sl/tar-1.28.sl.po

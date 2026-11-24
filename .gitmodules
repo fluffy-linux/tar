@@ -4,3 +4,6 @@
 [submodule "paxutils"]
 	path = paxutils
 	url = ../paxutils.git
+[submodule "translationproject"]
+	path = translationproject
+	url = ../translationproject.git
